@@ -2,10 +2,9 @@ package vip.yydz.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import vip.yydz.domain.Test;
 import vip.yydz.domain.TestExample;
-@Repository
+
 public interface TestMapper {
     long countByExample(TestExample example);
 
@@ -18,6 +17,7 @@ public interface TestMapper {
     int insertSelective(Test record);
 
     List<Test> selectByExample(TestExample example);
+    List<Test> selectByExampleWithStu(TestExample example);
 
     Test selectByPrimaryKey(Integer testid);
     Test selectByPrimaryKeyWithStu(Integer testid);
@@ -29,5 +29,4 @@ public interface TestMapper {
     int updateByPrimaryKeySelective(Test record);
 
     int updateByPrimaryKey(Test record);
-
 }

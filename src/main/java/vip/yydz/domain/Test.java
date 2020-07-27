@@ -1,9 +1,15 @@
 package vip.yydz.domain;
 
+import java.util.Date;
+
 public class Test {
     private Integer testid;
 
     private String subject;
+
+    private Date sdate;
+
+    private Date edate;
 
     private Boolean isubmit;
 
@@ -18,9 +24,11 @@ public class Test {
     private Integer testfk;
     private Student student;
 
-    public Test(Integer testid, String subject, Boolean isubmit, Integer pnumber, String picturepaths, Integer snumber, String scores, Integer testfk, Student student) {
+    public Test(Integer testid, String subject, Date sdate, Date edate, Boolean isubmit, Integer pnumber, String picturepaths, Integer snumber, String scores, Integer testfk, Student student) {
         this.testid = testid;
         this.subject = subject;
+        this.sdate = sdate;
+        this.edate = edate;
         this.isubmit = isubmit;
         this.pnumber = pnumber;
         this.picturepaths = picturepaths;
@@ -44,6 +52,22 @@ public class Test {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Date getSdate() {
+        return sdate;
+    }
+
+    public void setSdate(Date sdate) {
+        this.sdate = sdate;
+    }
+
+    public Date getEdate() {
+        return edate;
+    }
+
+    public void setEdate(Date edate) {
+        this.edate = edate;
     }
 
     public Boolean getIsubmit() {
@@ -107,6 +131,8 @@ public class Test {
         return "Test{" +
                 "testid=" + testid +
                 ", subject='" + subject + '\'' +
+                ", sdate=" + sdate +
+                ", edate=" + edate +
                 ", isubmit=" + isubmit +
                 ", pnumber=" + pnumber +
                 ", picturepaths='" + picturepaths + '\'' +
