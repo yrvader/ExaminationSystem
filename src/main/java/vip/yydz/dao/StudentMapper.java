@@ -18,9 +18,10 @@ public interface StudentMapper {
     int insertSelective(Student record);
 
     List<Student> selectByExample(StudentExample example);
+    List<Student> selectByExampleWithStu(StudentExample example);
 
     Student selectByPrimaryKey(Integer stuid);
-    Student selectByPrimaryKeyWithTest(@Param("stuid") Integer stuid);
+    Student selectByPrimaryKeyWithTest( Integer stuid);
 
     int updateByExampleSelective(@Param("record") Student record, @Param("example") StudentExample example);
 
