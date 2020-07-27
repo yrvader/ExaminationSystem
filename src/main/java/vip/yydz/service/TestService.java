@@ -1,4 +1,4 @@
-package vip.yydz.service.impl;
+package vip.yydz.service;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +43,17 @@ public interface TestService {
     int updateByPrimaryKeySelective(Test record);
     int updateByPrimaryKey(Test record);
     /**
-     * 为第i张图片添加路径
+     * 更改第i个路径
      */
+    public Test updateIthPath(int i,Test test,String path);
+
+    /**
+     * 修改ith的成绩
+     */
+    Test upadteIthScore(int i,Test test,Integer score);
+    /**
+     * 获得第i个路径
+     */
+    String getIthPath(int i,Test test);
+    Integer getIthScore(int i,Test test);
 }
