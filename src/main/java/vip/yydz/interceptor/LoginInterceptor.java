@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 //        request.setAttribute("msg","亲,请先登录");
 //        request.getRequestDispatcher("/user/login").forward(request,response);
 
-        return false;
+        return true;
     }
 
     @Override

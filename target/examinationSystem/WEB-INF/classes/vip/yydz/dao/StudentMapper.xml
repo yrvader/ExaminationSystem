@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.yydz.dao.StudentMapper">
+
+  <resultMap id="BaseResultMap" type="vip.yydz.domain.Student">
+    <id column="stuid" jdbcType="INTEGER" property="stuid" />
+    <result column="stunumber" jdbcType="VARCHAR" property="stunumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <resultMap id="BaseResultMapWithTest" type="vip.yydz.domain.Student">
+    <id column="stuid" jdbcType="INTEGER" property="stuid" />
+    <result column="stunumber" jdbcType="VARCHAR" property="stunumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <collection property="tests" ofType="vip.yydz.domain.Test">
+      <id column="testid" jdbcType="INTEGER" property="testid" />
+      <result column="subject" jdbcType="VARCHAR" property="subject" />
+      <result column="isubmit" jdbcType="BIT" property="isubmit" />
+      <result column="pnumber" jdbcType="INTEGER" property="pnumber" />
+      <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
+      <result column="snumber" jdbcType="INTEGER" property="snumber" />
+      <result column="scores" jdbcType="VARCHAR" property="scores" />
+      <result column="testfk" jdbcType="INTEGER" property="testfk" />
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stuid, stunumber, password
+  </sql>
+  <sql id="Base_Column_List_With_Test">
+   *
+  </sql>
+  <select id="selectByExample" parameterType="vip.yydz.domain.StudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithTest" parameterType="vip.yydz.domain.StudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student s left join test t on s.stuid=t.testfk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKeyWithTest" parameterType="java.lang.Integer" resultMap="BaseResultMapWithTest">
+    select
+    <include refid="Base_Column_List_With_Test" />
+    from student s ,test t
+    where s.stuid=t.testfk and stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="vip.yydz.domain.StudentExample">
+    delete from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="vip.yydz.domain.Student">
+    insert into student (stuid, stunumber, password
+      )
+    values (#{stuid,jdbcType=INTEGER}, #{stunumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="vip.yydz.domain.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        stuid,
+      </if>
+      <if test="stunumber != null">
+        stunumber,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="stunumber != null">
+        #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="vip.yydz.domain.StudentExample" resultType="java.lang.Long">
+    select count(*) from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update student
+    <set>
+      <if test="record.stuid != null">
+        stuid = #{record.stuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stunumber != null">
+        stunumber = #{record.stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update student
+    set stuid = #{record.stuid,jdbcType=INTEGER},
+      stunumber = #{record.stunumber,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.yydz.domain.Student">
+    update student
+    <set>
+      <if test="stunumber != null">
+        stunumber = #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.yydz.domain.Student">
+    update student
+    set stunumber = #{stunumber,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+</mapper>

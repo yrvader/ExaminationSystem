@@ -2,6 +2,7 @@ package vip.yydz.service.impl;
 
 import org.hamcrest.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import vip.yydz.dao.TestMapper;
 import vip.yydz.domain.Test;
@@ -9,7 +10,7 @@ import vip.yydz.domain.TestExample;
 import vip.yydz.service.TestService;
 
 import java.util.List;
-
+@Service(value = "testService")
 public class TestServiceImpl implements TestService {
     @Autowired
     private TestMapper testMapper;

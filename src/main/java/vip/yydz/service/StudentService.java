@@ -1,6 +1,7 @@
 package vip.yydz.service;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 import vip.yydz.domain.Student;
 import vip.yydz.domain.StudentExample;
 

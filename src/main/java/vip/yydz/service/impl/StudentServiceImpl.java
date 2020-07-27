@@ -1,4 +1,5 @@
 package vip.yydz.service.impl;
+import org.springframework.stereotype.Service;
 import vip.yydz.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import vip.yydz.domain.Student;
 import vip.yydz.domain.StudentExample;
 
 import java.util.List;
-
+@Service(value = "studentService")
 public class StudentServiceImpl implements  StudentService {
     @Autowired
     private StudentMapper studentMapper;
