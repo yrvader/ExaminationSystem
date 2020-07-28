@@ -33,9 +33,9 @@
 <a href="${appContext}/user/login">登录后台</a>
 
 
-<a href="${appContext}/admin/toAdmin">进入管理后台</a>
+<a href="${appContext}/admin/toAdmin">管理员登录</a>
 
-<a href="${appContext}/admin/testParam?username=zs&password=222332">关于传递参数的测试1</a>
-<a href="${appContext}/admin/testObject?username=zs&password=222332">关于传递对象的测试1</a>
+<%--<a href="${appContext}/admin/testParam?username=zs&password=222332">关于传递参数的测试1</a>--%>
+<%--<a href="${appContext}/admin/testObject?username=zs&password=222332">关于传递对象的测试1</a>--%>
 </body>
 </html>
