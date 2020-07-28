@@ -51,9 +51,12 @@ public interface TestService {
      * 修改ith的成绩
      */
     Test upadteIthScore(int i,Test test,Integer score);
+    Test deleteIthPath(int i,Integer testid);
+    Test addPath(Integer testid,String path);
     /**
      * 获得第i个路径
      */
     String getIthPath(int i,Test test);
     Integer getIthScore(int i,Test test);
+    String[] getPaths(Test test);
 }

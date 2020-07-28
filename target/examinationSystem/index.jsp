@@ -29,13 +29,12 @@
 <%-- <a href="user/a_page">wel</a>--%>
 
 <%--<a href="user/getUsers">获取所有用户信息</a>--%>
-
-<a href="${appContext}/user/login">登录后台</a>
-
-
-<a href="${appContext}/admin/toAdmin">进入管理后台</a>
-
-<a href="${appContext}/admin/testParam?username=zs&password=222332">关于传递参数的测试1</a>
-<a href="${appContext}/admin/testObject?username=zs&password=222332">关于传递对象的测试1</a>
-</body>
+<div align="center">
+    <br>
+    <H1>欢迎光临yydz的考试平台</H1>
+    <a href="${appContext}/admin/login">点击进行登录</a>
+</div>
+<script src="${appContext}/js/jquery-3.3.1.js"></script>
+<script src="${appContext}/js/bootstrap.js"></script>
+<body/>
 </html>

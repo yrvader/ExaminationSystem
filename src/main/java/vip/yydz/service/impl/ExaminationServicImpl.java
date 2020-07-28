@@ -1,13 +1,14 @@
 package vip.yydz.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import vip.yydz.dao.ExaminationMapper;
 import vip.yydz.domain.Examination;
 import vip.yydz.domain.ExaminationExample;
 import vip.yydz.service.ExaminationService;
 
 import java.util.List;
-
+@Service
 public class ExaminationServicImpl implements ExaminationService {
     @Autowired
     private ExaminationMapper examinationMapper;

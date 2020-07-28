@@ -84,8 +84,9 @@ public class TestServiceImpl implements TestService {
             upadtepath=upadtepath+";"+list[j];
         }
         test.setPicturepaths(upadtepath);
+        System.out.println(test);
         testMapper.updateByPrimaryKey(test);
-        return test;
+        return testMapper.selectByPrimaryKey(test.getTestid());
     }
     @Override
     public Test upadteIthScore(int i, Test test, Integer score) {
@@ -98,8 +99,43 @@ public class TestServiceImpl implements TestService {
         }
         test.setScores(updateScores);
         testMapper.updateByPrimaryKey(test);
-        return test;
+        return testMapper.selectByPrimaryKey(test.getTestid());
     }
+
+    @Override
+    public Test deleteIthPath(int i, Integer testid) {
+        Test test=testMapper.selectByPrimaryKey(testid);
+        String paths=test.getPicturepaths();
+        String[] list=paths.split(";");
+
+        for(int j=i-1;j<list.length-1;j++){
+            list[j]=list[j+1];
+        }
+        String upadtepath=list[0];
+        if(list.length!=1){
+
+            for(int j=1;j<list.length;i++){
+                upadtepath=upadtepath+";"+list[j];
+            }
+        }
+        else{
+            upadtepath="";
+        }
+        test.setPicturepaths(upadtepath);
+        testMapper.updateByPrimaryKey(test);
+        return testMapper.selectByPrimaryKey(test.getTestid());
+    }
+
+    @Override
+    public Test addPath(Integer testid, String path) {
+        Test test=testMapper.selectByPrimaryKey(testid);
+        String updatePaths=test.getPicturepaths();
+        updatePaths=updatePaths+";"+path;
+        test.setPicturepaths(updatePaths);
+        testMapper.updateByPrimaryKey(test);
+        return testMapper.selectByPrimaryKey(test.getTestid());
+    }
+
     @Override
     public String getIthPath(int i, Test test) {
         String paths=test.getPicturepaths();
@@ -114,6 +150,12 @@ public class TestServiceImpl implements TestService {
         String score =list[i-1];
         score=scores.replaceAll(i+"=","");
         Integer ans=Integer.valueOf(scores);
+        return ans;
+    }
+
+    @Override
+    public String[] getPaths(Test test) {
+        String[] ans=test.getPicturepaths().split(";");
         return ans;
     }
 }

@@ -20,11 +20,11 @@
 </head>
 <body>
     <div class="container">
-        <form method="post" action="${appContext}/user/loginCheck" class="form-horizontal" role="form">
+        <form method="post" action="${appContext}/admin/loginCheck" class="form-horizontal" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="username" placeholder="用户名"/>
+                    <input type="text" class="form-control" name="stunumber" placeholder="用户名"/>
                 </div>
             </div>
             <div class="form-group">
@@ -32,6 +32,10 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码">
                 </div>
+            </div>
+            <div>
+                <input type="radio" name="isad" value="true" checked="checked"/>管理员
+                <input type="radio" name="isad" value="false"/>学生
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

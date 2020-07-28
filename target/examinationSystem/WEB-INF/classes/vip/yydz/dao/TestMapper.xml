@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="vip.yydz.domain.Test">
     <id column="testid" jdbcType="INTEGER" property="testid" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="sdate" jdbcType="DATE" property="sdate" />
+    <result column="edate" jdbcType="DATE" property="edate" />
     <result column="isubmit" jdbcType="BIT" property="isubmit" />
     <result column="pnumber" jdbcType="INTEGER" property="pnumber" />
     <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
@@ -14,6 +16,8 @@
   <resultMap id="BaseResultMapWithStu" type="vip.yydz.domain.Test">
     <id column="testid" jdbcType="INTEGER" property="testid" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="sdate" jdbcType="DATE" property="sdate" />
+    <result column="edate" jdbcType="DATE" property="edate" />
     <result column="isubmit" jdbcType="BIT" property="isubmit" />
     <result column="pnumber" jdbcType="INTEGER" property="pnumber" />
     <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
@@ -26,6 +30,9 @@
       <result column="password" jdbcType="VARCHAR" property="password" />
     </association>
   </resultMap>
+  <sql id="Base_Column_List_With_Stu">
+    t.*,s.*
+  </sql>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -84,12 +91,8 @@
       </foreach>
     </where>
   </sql>
-
   <sql id="Base_Column_List">
-    testid, subject, isubmit, pnumber, picturepaths, snumber, scores, testfk
-  </sql>
-  <sql id="Base_Column_List_With_Stu">
-    t.*,s.*
+    testid, subject, sdate, edate, isubmit, pnumber, picturepaths, snumber, scores, testfk
   </sql>
   <select id="selectByExample" parameterType="vip.yydz.domain.TestExample" resultMap="BaseResultMap">
     select
@@ -105,6 +108,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test
+    where testid = #{testid,jdbcType=INTEGER}
+  </select>
   <select id="selectByExampleWithStu" parameterType="vip.yydz.domain.TestExample" resultMap="BaseResultMapWithStu">
     select
     <if test="distinct">
@@ -118,12 +127,6 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from test
-    where testid = #{testid,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKeyWithStu" parameterType="java.lang.Integer" resultMap="BaseResultMapWithStu">
     select
@@ -142,12 +145,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="vip.yydz.domain.Test">
-    insert into test (testid, subject, isubmit, 
-      pnumber, picturepaths, snumber, 
-      scores, testfk)
-    values (#{testid,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{isubmit,jdbcType=BIT}, 
-      #{pnumber,jdbcType=INTEGER}, #{picturepaths,jdbcType=VARCHAR}, #{snumber,jdbcType=INTEGER}, 
-      #{scores,jdbcType=VARCHAR}, #{testfk,jdbcType=INTEGER})
+    insert into test (testid, subject, sdate, 
+      edate, isubmit, pnumber, picturepaths, 
+      snumber, scores, testfk
+      )
+    values (#{testid,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{sdate,jdbcType=DATE}, 
+      #{edate,jdbcType=DATE}, #{isubmit,jdbcType=BIT}, #{pnumber,jdbcType=INTEGER}, #{picturepaths,jdbcType=VARCHAR}, 
+      #{snumber,jdbcType=INTEGER}, #{scores,jdbcType=VARCHAR}, #{testfk,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="vip.yydz.domain.Test">
     insert into test
@@ -157,6 +162,12 @@
       </if>
       <if test="subject != null">
         subject,
+      </if>
+      <if test="sdate != null">
+        sdate,
+      </if>
+      <if test="edate != null">
+        edate,
       </if>
       <if test="isubmit != null">
         isubmit,
@@ -183,6 +194,12 @@
       </if>
       <if test="subject != null">
         #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null">
+        #{sdate,jdbcType=DATE},
+      </if>
+      <if test="edate != null">
+        #{edate,jdbcType=DATE},
       </if>
       <if test="isubmit != null">
         #{isubmit,jdbcType=BIT},
@@ -219,6 +236,12 @@
       <if test="record.subject != null">
         subject = #{record.subject,jdbcType=VARCHAR},
       </if>
+      <if test="record.sdate != null">
+        sdate = #{record.sdate,jdbcType=DATE},
+      </if>
+      <if test="record.edate != null">
+        edate = #{record.edate,jdbcType=DATE},
+      </if>
       <if test="record.isubmit != null">
         isubmit = #{record.isubmit,jdbcType=BIT},
       </if>
@@ -246,6 +269,8 @@
     update test
     set testid = #{record.testid,jdbcType=INTEGER},
       subject = #{record.subject,jdbcType=VARCHAR},
+      sdate = #{record.sdate,jdbcType=DATE},
+      edate = #{record.edate,jdbcType=DATE},
       isubmit = #{record.isubmit,jdbcType=BIT},
       pnumber = #{record.pnumber,jdbcType=INTEGER},
       picturepaths = #{record.picturepaths,jdbcType=VARCHAR},
@@ -261,6 +286,12 @@
     <set>
       <if test="subject != null">
         subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null">
+        sdate = #{sdate,jdbcType=DATE},
+      </if>
+      <if test="edate != null">
+        edate = #{edate,jdbcType=DATE},
       </if>
       <if test="isubmit != null">
         isubmit = #{isubmit,jdbcType=BIT},
@@ -286,6 +317,8 @@
   <update id="updateByPrimaryKey" parameterType="vip.yydz.domain.Test">
     update test
     set subject = #{subject,jdbcType=VARCHAR},
+      sdate = #{sdate,jdbcType=DATE},
+      edate = #{edate,jdbcType=DATE},
       isubmit = #{isubmit,jdbcType=BIT},
       pnumber = #{pnumber,jdbcType=INTEGER},
       picturepaths = #{picturepaths,jdbcType=VARCHAR},

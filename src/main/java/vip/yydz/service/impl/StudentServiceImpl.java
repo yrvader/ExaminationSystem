@@ -44,8 +44,8 @@ public class StudentServiceImpl implements  StudentService {
     }
 
     @Override
-    public List<Student> selectByExampleWithStu(StudentExample example) {
-        return studentMapper.selectByExampleWithStu(example);
+    public List<Student> selectByExampleWithTest(StudentExample example) {
+        return studentMapper.selectByExampleWithTest(example);
     }
 
     @Override

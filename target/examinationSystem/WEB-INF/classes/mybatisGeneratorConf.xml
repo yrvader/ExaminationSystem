@@ -24,7 +24,7 @@
         </javaClientGenerator>
 <!--        指定数据表的生成策略-->
 <!--        <table tableName="student" domainObjectName="Student" />-->
-        <table tableName="test" domainObjectName="Test" />
+        <table tableName="examination" domainObjectName="Examination" />
         
 
     </context>

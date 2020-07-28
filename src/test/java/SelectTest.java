@@ -27,9 +27,11 @@ public class SelectTest {
     @Test
     public void test1()
     {
-        StudentExample studentExample=new StudentExample();
-        studentExample.createCriteria().andStuidEqualTo(1);
-       System.out.println(studentMapper.selectByPrimaryKeyWithTest(1));
-        //System.out.println(testMapper.selectByPrimaryKeyWithStu(1));
+//        StudentExample studentExample=new StudentExample();
+//        studentExample.createCriteria().andStuidEqualTo(1);
+//       System.out.println(studentMapper.selectByPrimaryKeyWithTest(1));
+//        //System.out.println(testMapper.selectByPrimaryKeyWithStu(1));
+        String s="";
+        System.out.println(s.split(","));
     }
 }

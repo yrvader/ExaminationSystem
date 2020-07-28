@@ -19,7 +19,7 @@ public interface StudentService {
     int insertSelective(Student record);
 
     List<Student> selectByExample(StudentExample example);
-    List<Student> selectByExampleWithStu(StudentExample example);
+    List<Student> selectByExampleWithTest(StudentExample example);
 
     Student selectByPrimaryKey(Integer stuid);
     Student selectByPrimaryKeyWithTest( Integer stuid);

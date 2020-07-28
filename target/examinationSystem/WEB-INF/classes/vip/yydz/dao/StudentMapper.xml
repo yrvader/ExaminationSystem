@@ -14,6 +14,8 @@
     <collection property="tests" ofType="vip.yydz.domain.Test">
       <id column="testid" jdbcType="INTEGER" property="testid" />
       <result column="subject" jdbcType="VARCHAR" property="subject" />
+      <result column="sdate" jdbcType="DATE" property="sdate" />
+      <result column="edate" jdbcType="DATE" property="edate" />
       <result column="isubmit" jdbcType="BIT" property="isubmit" />
       <result column="pnumber" jdbcType="INTEGER" property="pnumber" />
       <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
