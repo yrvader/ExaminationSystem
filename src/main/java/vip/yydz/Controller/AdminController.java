@@ -34,31 +34,34 @@ public class AdminController {
     @Autowired
     private TestService testService;
     @RequestMapping(value = "/loginCheck")
-    public ModelAndView loginCheck(Student student,Boolean isad, HttpSession session){
+    public ModelAndView loginCheck(Student student,Boolean isad, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(student);
-        if(!isad){
-            StudentExample studentExample=new StudentExample();
+        if (!isad) {
+            StudentExample studentExample = new StudentExample();
             studentExample.createCriteria().andPasswordEqualTo(student.getPassword());
             studentExample.createCriteria().andStunumberEqualTo(student.getStunumber());
-            List<Student> students=studentService.selectByExampleWithTest(studentExample);
-            if(!students.isEmpty()){
+            List<Student> students = studentService.selectByExampleWithTest(studentExample);
+            if (!students.isEmpty()) {
                 modelAndView.setViewName("/stu/stu");//重定向管理首页
-                session.setAttribute("stu",students.get(0));//封装学生
+                session.setAttribute("stu", students.get(0));//封装学生
                 //model目的就是把数据封装在  request对象里传递,
-            }else{//不存在
+            } else {//不存在
                 modelAndView.setViewName("login");//返回登录页
             }
-        }
-        else {
-            if (username.equals(student.getStunumber())&&password.equals(student.getPassword())){
+        } else {
+            if (username.equals(student.getStunumber()) && password.equals(student.getPassword())) {
                 modelAndView.setViewName("/admin/admin");
-            }
-            else {
+            } else {
                 modelAndView.setViewName("login");//返回登录页
             }
         }
         return modelAndView;
+    }
+    @RequestMapping(value = "/login")
+    public String login(){
+        return "login";
+    }
     @Autowired
     private ExaminationService examinationService;
     @RequestMapping(value = "/toAdmin")

@@ -230,7 +230,7 @@
                     <TD align=middle width=30><IMG height=9
                                                    src="images/t.jpg" width=9></TD>
                     <TD><A class=menuChild
-                           href="examroom.html"
+                           href="${appContext}/admin/addStudent"
                            target="view_frame">分配考场</A></TD>
                 </TR>
             </TABLE>
