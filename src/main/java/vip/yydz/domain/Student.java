@@ -18,6 +18,8 @@ public class Student {
     }
     public Student(){}
 
+//    public Integer cal(){return 1;}
+
     public Integer getStuid() {
         return stuid;
     }
