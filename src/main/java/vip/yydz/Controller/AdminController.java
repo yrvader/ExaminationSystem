@@ -107,6 +107,10 @@ public class AdminController {
         }
     }
 
+    /**
+     * 跳转到考试列表
+     * @return
+     */
     @RequestMapping(value = "/examlist")
     public ModelAndView examList(){
         ModelAndView modelAndView = new ModelAndView("admin/examlist");
@@ -125,6 +129,12 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 为考试添加学生
+     * @param examination
+     * @param student
+     * @return
+     */
     @RequestMapping(value = "/addStudentToExamOperation")
     public ModelAndView addStudentToExamOperation(Examination examination, Student student){
         ModelAndView modelAndView = new ModelAndView("admin/addStudentToExam");

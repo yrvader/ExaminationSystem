@@ -32,6 +32,11 @@ public class StudentController {
     private TestService testService;
     @Autowired
     private ExaminationService examinationService;
+
+    /**
+     * 跳转到更新密码的界面
+     * @return
+     */
     @RequestMapping(value = "/toupdatepassword")
     public ModelAndView  toupadtepassword(){
         ModelAndView modelAndView=new ModelAndView();
@@ -43,9 +48,15 @@ public class StudentController {
         System.out.println(student);
         studentService.updateByPrimaryKeySelective(student);
         student= studentService.selectByPrimaryKey(student.getStuid());
-        session.setAttribute("stu",student);
-        return "stu/success";
+        session.setAttribute("stu",student);//更新session
+        return "stu/success";//返回到显示成功的界面
     }
+
+    /**
+     * 转到未提交界面
+     * @param stuid
+     * @return
+     */
     @RequestMapping(value = "tounfinishedlist")
     public ModelAndView tounfinishedlist(Integer stuid)
     {
@@ -53,12 +64,19 @@ public class StudentController {
         TestExample example=new TestExample();
         example.createCriteria().andIsubmitEqualTo(false);
         example.createCriteria().andTestfkEqualTo(stuid);
-        List<Test> tests=testService.selectByExample(example);
+        List<Test> tests=testService.selectByExample(example);//搜索
         modelAndView.addObject("tests" ,tests);//给页面一个test的集合
-        modelAndView.addObject("date",new Date());
+        modelAndView.addObject("date",new Date());//当前时间
         modelAndView.setViewName("stu/unfinishedExamlist");
         return modelAndView;
     }
+
+    /**
+     * 转到更新图片的界面
+     * @param testid 要更新的试卷
+     * @param session 好像没啥用
+     * @return
+     */
     @RequestMapping(value = "/touploadExam")
     public ModelAndView touploadExam(Integer testid,HttpSession session){
         Test test=testService.selectByPrimaryKey(testid);
@@ -83,20 +101,8 @@ public class StudentController {
         file.transferTo(file1);
         String photoUrl="images/upload/"+filename;
         test=testService.updateIthPath(i,test,photoUrl);
-//        System.out.println(file);
-//        for(int j=0;j<file.length;j++){
-//            System.out.println(file[j]);
-//            String filename = testid + "-"+j + file[j].getOriginalFilename();
-//            File file1 = new File(path, filename);
-//            if(!file1.exists()){
-//                file1.mkdirs();
-//            }
-//            file[j].transferTo(file1);
-//            String photoUrl="images/upload/"+filename;
-//            test=testService.updateIthPath(j+1,test,photoUrl);
-//        }
         ModelAndView modelAndView = new ModelAndView("stu/uploadExam");
-        modelAndView.addObject("test",test);
+        modelAndView.addObject("test",test);//设置新的test
         modelAndView.addObject("paths",testService.getPaths(test));
         TestExample testExample=new TestExample();
         return modelAndView;
@@ -134,7 +140,7 @@ public class StudentController {
         Student student=(Student)session.getAttribute("stu");
         TestExample example=new TestExample();
         example.createCriteria().andIsubmitEqualTo(true);
-
+        example.createCriteria().andTestfkEqualTo(student.getStuid());
         List<Test> tests=testService.selectByExample(example);
         System.out.println(tests);
         modelAndView.addObject("tests",tests);
