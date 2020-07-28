@@ -18,13 +18,13 @@
 <div class="container">
     <div class="row">
 <%--        需更改为展示Exam.subject--%>
-        考试管理 科目：${sessionScope.USER_SESSION.username}
+        考试管理 科目：${exam.subject}
     </div>
 </div>
 <%--spring的工作就是自动封装和扫描bean--%>
 <div class="container">
     <%--    需修改action--%>
-    <form method="post" action="${appContext}/user/add" class="form-horizontal" role="form">
+    <form method="post" action="${appContext}/admin/addStudentToExamOperation" class="form-horizontal" role="form">
         <div class="form-group">
             <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-6">
@@ -49,19 +49,19 @@
         //当在用户名输入框中触发键盘时做用户是否重名的验证
         $("#studentnumberInput").keyup(function () {
             $.get(
-                // 需修改路径
-                "${appContext}/user/userExistAjax?username="+encodeURI($("#studentnumberInput").val()),
+                // 需修改examination怎么传入
+                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
-                    if(result=="该用户已存在"){
+                    if(result=="该学生可添加"){
+                        $("#studentnumberTips").addClass("danger").text(result);
+                        $("#studentnumberTips").parent().addClass("has-error");
+                        $("button").removeClass("disabled");
+
+                    }else{
                         $("#studentnumberTips").addClass("success").text(result);
                         $("#studentnumberTips").parent().addClass("has-success");
                         $("button").addClass("disabled");
                         flag=true;
-
-                    }else{
-                        $("#studentnumberTips").addClass("danger").text(result);
-                        $("#studentnumberTips").parent().addClass("has-error");
-                        $("button").removeClass("disabled");
                     }
                 }
             );

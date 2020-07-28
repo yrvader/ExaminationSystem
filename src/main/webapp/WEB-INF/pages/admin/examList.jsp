@@ -33,15 +33,15 @@
     <tbody>
     <%--    循环遍历输出数据,使用jstl--%>
 <%--    需修改--%>
-    <c:forEach items="${users}" var="user" varStatus="status">
+    <c:forEach items="${exams}" var="exam" varStatus="status">
         <tr>
             <th>${status.count}</th>
-            <td>${user.subject}</td>
-            <td>${user.sdate}</td>
-            <td>${user.edate}</td>
-            <td><a class="btn btn-info btn-sm" href="${appContext}/admin/addStudentToExam?id=${user.id}">添加学生</a></td>
-            <td><a class="btn btn-info btn-sm" href="${appContext}/admin/checkAnswer?uid=${user.id}">批阅</a></td>
-            <td><a class="btn btn-danger btn-sm" href="${appContext}/user/delete?uid=${user.id}">删除</a></td>
+            <td>${exam.subject}</td>
+            <td>${exam.sdate}</td>
+            <td>${exam.edate}</td>
+            <td><a class="btn btn-info btn-sm" href="${appContext}/admin/addStudentToExam?id=${exam.id}">添加学生</a></td>
+            <td><a class="btn btn-info btn-sm" href="${appContext}/admin/checkAnswer?id=${exam.id}">批阅</a></td>
+            <td><a class="btn btn-danger btn-sm" href="${appContext}/user/delete?id=${exam.id}">删除</a></td>
         </tr>
     </c:forEach>
 

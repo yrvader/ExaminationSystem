@@ -47,7 +47,7 @@
             <td><input type="text" class="form-control" id="password" name="password" placeholder="请输入分数"></td>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-block btn-success">登录</button>
+                    <button type="submit" class="btn btn-block btn-success">提交评分</button>
                 </div>
             </div>
             <td><a class="btn btn-danger btn-sm" href="${appContext}/user/delete?uid=${user.id}">删除</a></td>

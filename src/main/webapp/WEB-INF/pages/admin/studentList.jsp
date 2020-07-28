@@ -23,7 +23,6 @@
     <tr class="bg-info">
         <th>序号#</th>
         <th>学号</th>
-        <th>平均成绩</th>
         <th>操作(删除)</th>
     </tr>
     </thead>
@@ -31,13 +30,11 @@
     <%--    循环遍历输出数据,使用jstl--%>
     <jsp:useBean id="users" scope="request" type="java.util.List"/>
 <%--    需修改--%>
-    <c:forEach items="${users}" var="user" varStatus="status">
+    <c:forEach items="${students}" var="student" varStatus="status">
         <tr>
             <th>${status.count}</th>
-            <td>${user.stunumber}</td>
-<%--            需修改为计算平均成绩--%>
-            <td>${user.password}</td>
-            <td><a class="btn btn-danger btn-sm" href="${appContext}/user/delete?uid=${user.uid}">删除</a></td>
+            <td>${student.stunumber}</td>
+            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?stuid=${student.uid}">删除</a></td>
         </tr>
     </c:forEach>
 

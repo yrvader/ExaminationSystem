@@ -18,7 +18,7 @@
 <%--spring的工作就是自动封装和扫描bean--%>
 <div class="container">
 <%--    需修改action--%>
-    <form method="post" action="${appContext}/user/add" class="form-horizontal" role="form">
+    <form method="post" action="${appContext}/admin/addStudent" class="form-horizontal" role="form">
         <div class="form-group">
             <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-6">
@@ -51,9 +51,9 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改路径
-                "${appContext}/user/userExistAjax?username="+encodeURI($("#studentnumberInput").val()),
+                "${appContext}/admin/studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
-                    if(result=="该用户已存在"){
+                    if(result=="该学号已存在"){
                         $("#studentnumberTips").addClass("danger").text(result);
                         $("#studentnumberTips").parent().addClass("has-error");
                         $("button").addClass("disabled");
