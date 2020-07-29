@@ -21,10 +21,12 @@ public class Test {
 
     private String scores;
 
+    private Boolean idread;
+
     private Integer testfk;
     private Student student;
 
-    public Test(Integer testid, String subject, Date sdate, Date edate, Boolean isubmit, Integer pnumber, String picturepaths, Integer snumber, String scores, Integer testfk, Student student) {
+    public Test(Integer testid, String subject, Date sdate, Date edate, Boolean isubmit, Integer pnumber, String picturepaths, Integer snumber, String scores, Boolean idread, Integer testfk, Student student) {
         this.testid = testid;
         this.subject = subject;
         this.sdate = sdate;
@@ -34,10 +36,19 @@ public class Test {
         this.picturepaths = picturepaths;
         this.snumber = snumber;
         this.scores = scores;
+        this.idread = idread;
         this.testfk = testfk;
         this.student = student;
     }
-    public Test(){}
+    public  Test(){};
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public Integer getTestid() {
         return testid;
     }
@@ -110,20 +121,20 @@ public class Test {
         this.scores = scores;
     }
 
+    public Boolean getIdread() {
+        return idread;
+    }
+
+    public void setIdread(Boolean idread) {
+        this.idread = idread;
+    }
+
     public Integer getTestfk() {
         return testfk;
     }
 
     public void setTestfk(Integer testfk) {
         this.testfk = testfk;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     @Override
@@ -138,6 +149,7 @@ public class Test {
                 ", picturepaths='" + picturepaths + '\'' +
                 ", snumber=" + snumber +
                 ", scores='" + scores + '\'' +
+                ", idread=" + idread +
                 ", testfk=" + testfk +
                 ", student=" + student +
                 '}';

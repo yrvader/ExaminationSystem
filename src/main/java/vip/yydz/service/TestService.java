@@ -36,6 +36,7 @@ public interface TestService {
     int insert(Test record);
     int insertSelective(Test record);
     List<Test> selectByExample(TestExample example);
+    List<Test> selecByExampleWithStu(TestExample example);
     Test selectByPrimaryKey(Integer testid);
     Test selectByPrimaryKeyWithStu(Integer testid);
     int updateByExampleSelective(@Param("record") Test record, @Param("example") TestExample example);
@@ -59,4 +60,5 @@ public interface TestService {
     String getIthPath(int i,Test test);
     Integer getIthScore(int i,Test test);
     String[] getPaths(Test test);
+    Integer[] getScores(Test test);
 }

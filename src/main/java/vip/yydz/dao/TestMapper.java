@@ -17,10 +17,9 @@ public interface TestMapper {
     int insertSelective(Test record);
 
     List<Test> selectByExample(TestExample example);
-    List<Test> selectByExampleWithStu(TestExample example);
-
-    Test selectByPrimaryKey(Integer testid);
     Test selectByPrimaryKeyWithStu(Integer testid);
+    List<Test> selectByExampleWithStu(TestExample example);
+    Test selectByPrimaryKey(Integer testid);
 
     int updateByExampleSelective(@Param("record") Test record, @Param("example") TestExample example);
 
@@ -29,4 +28,6 @@ public interface TestMapper {
     int updateByPrimaryKeySelective(Test record);
 
     int updateByPrimaryKey(Test record);
+
+
 }

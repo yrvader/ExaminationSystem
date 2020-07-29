@@ -702,6 +702,66 @@ public class TestExample {
             return (Criteria) this;
         }
 
+        public Criteria andIdreadIsNull() {
+            addCriterion("idread is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadIsNotNull() {
+            addCriterion("idread is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadEqualTo(Boolean value) {
+            addCriterion("idread =", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadNotEqualTo(Boolean value) {
+            addCriterion("idread <>", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadGreaterThan(Boolean value) {
+            addCriterion("idread >", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("idread >=", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadLessThan(Boolean value) {
+            addCriterion("idread <", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadLessThanOrEqualTo(Boolean value) {
+            addCriterion("idread <=", value, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadIn(List<Boolean> values) {
+            addCriterion("idread in", values, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadNotIn(List<Boolean> values) {
+            addCriterion("idread not in", values, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadBetween(Boolean value1, Boolean value2) {
+            addCriterion("idread between", value1, value2, "idread");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdreadNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("idread not between", value1, value2, "idread");
+            return (Criteria) this;
+        }
+
         public Criteria andTestfkIsNull() {
             addCriterion("testfk is null");
             return (Criteria) this;

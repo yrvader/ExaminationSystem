@@ -1,5 +1,6 @@
 package vip.yydz.Controller;
 
+import org.hamcrest.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import vip.yydz.service.TestService;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -249,6 +251,41 @@ public class AdminController {
         examination.setEdate(edate);
         examinationService.insert(examination);
         ModelAndView modelAndView=new ModelAndView("redirect:examlist");
+        return modelAndView;
+    }
+    @RequestMapping(value = "tostuexamlist")
+    public ModelAndView tostulist(Integer id)
+    {
+        Examination examination =examinationService.selectByPrimaryKey(id);
+        TestExample example=new TestExample();
+        example.createCriteria().andSubjectEqualTo(examination.getSubject());
+        List<Test> tests=testService.selecByExampleWithStu(example);
+        List<Test> first=new ArrayList<>();
+        List<Test> last =new ArrayList<>();
+        for(int i=0;i<tests.size();i++){
+            Test test=tests.get(i);
+            if(test.getIdread()==false){
+                first.add(test);
+            }
+            else {
+                last.add(test);
+            }
+        }
+        first.addAll(last);
+        ModelAndView modelAndView=new ModelAndView("admin/stuexamlist");
+        modelAndView.addObject("exam",examination);
+        modelAndView.addObject("tests",first);
+        return modelAndView;
+    }
+    @RequestMapping(value = "read")
+    public ModelAndView read(Integer testid){
+        Test test=testService.selectByPrimaryKeyWithStu(testid);
+        String[] paths=testService.getPaths(test);
+        Integer[] scores=testService.getScores(test);
+        ModelAndView modelAndView=new ModelAndView("admin/checkAnswer");
+        modelAndView.addObject("test",test);
+        modelAndView.addObject("paths",paths);
+        modelAndView.addObject("scores",scores);
         return modelAndView;
     }
 }

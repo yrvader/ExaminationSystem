@@ -45,6 +45,11 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public List<Test> selecByExampleWithStu(TestExample example) {
+        return testMapper.selectByExampleWithStu(example);
+    }
+
+    @Override
     public Test selectByPrimaryKey(Integer testid) {
         return testMapper.selectByPrimaryKey(testid);
     }
@@ -156,6 +161,17 @@ public class TestServiceImpl implements TestService {
     @Override
     public String[] getPaths(Test test) {
         String[] ans=test.getPicturepaths().split(";");
+        return ans;
+    }
+
+    @Override
+    public Integer[] getScores(Test test) {
+        String[] scores=test.getScores().split(",");
+        Integer[] ans=new Integer[scores.length];
+        for(int i=0;i<scores.length;i++)
+        {
+            ans[i]=Integer.valueOf(scores[i].split("=")[1]);
+        }
         return ans;
     }
 }
