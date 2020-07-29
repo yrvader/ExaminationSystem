@@ -35,10 +35,11 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
 <!--            添加排除的选项(静态资源和登录页)-->
-            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/admin/login"/>
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/js/**"/>
             <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/stu/login"/>
             <bean class="vip.yydz.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

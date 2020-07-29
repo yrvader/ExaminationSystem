@@ -36,7 +36,7 @@
             </form>
             </c:forEach>
             <div class="col-sm-12 col-md-9">
-                <a class="btn btn-primary" href="${appContext}/admin/submuitscore?id=${test.testid}">提交</a>
+                <a class="btn btn-primary" href="${appContext}/admin/submuitscore?testid=${test.testid}">提交</a>
             </div>
         </div>
         <div class="col-sm-12 col-md-3">

@@ -191,7 +191,7 @@
     <div class="row">
         学生考试管理系统    欢迎您:${sessionScope.USER_SESSION.username}
 <%--        需修改href--%>
-        <a target="_self" href="${appContext}/user/logout">退出登录</a>
+        <a target="_self" href="${appContext}/admin/logout">退出登录</a>
     </div>
 </div>
 <TABLE height="100%" cellSpacing=0 cellPadding=0 width=170 background=images/t.jpg border=0>
@@ -331,7 +331,7 @@
                                                    src="images/menu_icon.gif" width=9></TD>
                     <TD><A class=menuChild
                            onclick="if (confirm('确定要退出吗？')) return true; else return false;"
-                           href="https://www.jb51.net"
+                           href="${appContext}/admin/logout"
                            target=_top>退出系统</A></TD>
                 </TR>
             </TABLE>

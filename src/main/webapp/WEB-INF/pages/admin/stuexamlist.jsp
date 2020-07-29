@@ -31,7 +31,7 @@
         <tr>
             <th>${status.count}</th>
             <td>${test.student.stunumber}</td>
-            <c:if test="${test.idread}==true">
+            <c:if test="${test.idread==true}">
                 <td>已批阅</td>
             </c:if>
             <c:if test="${test.idread==false}">

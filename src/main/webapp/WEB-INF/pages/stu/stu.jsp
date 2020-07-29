@@ -20,7 +20,7 @@
         <h3>学生考试试题提交系统    欢迎您:${sessionScope.stu.stunumber}</h3>
         <%--        这三条路径需按项目结构修改--%>
         <a href="${appContext}/stu/toupdatepassword">修改密码</a>
-        <a target="_self" href="${appContext}/user/logout">退出登录</a>
+        <a target="_self" href="${appContext}/stu/logout">退出登录</a>
     </div>
 </div>
 

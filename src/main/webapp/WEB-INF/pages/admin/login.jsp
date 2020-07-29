@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="${appContext}/css/bootstrap.css"/>
 </head>
 <body>
+<h4>管理员登录界面</h4>
+<a href="${appContext}/stu/login">学生登录</a>
     <div class="container">
         <form method="post" action="${appContext}/admin/loginCheck" class="form-horizontal" role="form">
             <div class="form-group">
@@ -33,10 +35,7 @@
                     <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码">
                 </div>
             </div>
-            <div>
-                <input type="radio" name="isad" value="true" checked="checked"/>管理员
-                <input type="radio" name="isad" value="false"/>学生
-            </div>
+            ${msg}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-block btn-success">登录</button>
@@ -45,7 +44,6 @@
 
         </form>
     </div>
-    ${ msg }
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 </body>

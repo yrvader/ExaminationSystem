@@ -1,9 +1,7 @@
 package vip.yydz.Controller;
 
-import org.hamcrest.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import vip.yydz.domain.Student;
@@ -11,7 +9,6 @@ import vip.yydz.domain.StudentExample;
 import vip.yydz.domain.Test;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import vip.yydz.domain.*;
 import vip.yydz.service.ExaminationService;
 import vip.yydz.service.StudentService;
@@ -22,10 +19,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -36,42 +31,61 @@ public class AdminController {
     private StudentService studentService;
     @Autowired
     private TestService testService;
+    @Autowired
+    private ExaminationService examinationService;
+
+    /**
+     * 检查参数并跳转，都是重定向的
+     * @param student
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/loginCheck")
-    public ModelAndView loginCheck(Student student,Boolean isad, HttpSession session) {
+    public ModelAndView loginCheck(Student student, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println(student);
-        if (!isad) {
-            StudentExample studentExample = new StudentExample();
-            studentExample.createCriteria().andPasswordEqualTo(student.getPassword());
-            studentExample.createCriteria().andStunumberEqualTo(student.getStunumber());
-            List<Student> students = studentService.selectByExampleWithTest(studentExample);
-            if (!students.isEmpty()) {
-                modelAndView.setViewName("/stu/stu");//重定向管理首页
-                session.setAttribute("stu", students.get(0));//封装学生
-                //model目的就是把数据封装在  request对象里传递,
-            } else {//不存在
-                modelAndView.setViewName("login");//返回登录页
-            }
+        if (username.equals(student.getStunumber()) && password.equals(student.getPassword())) {
+            session.setAttribute("admin",new AdminController());
+            modelAndView.setViewName("redirect:/admin");
         } else {
-            if (username.equals(student.getStunumber()) && password.equals(student.getPassword())) {
-                modelAndView.setViewName("/admin/admin");
-            } else {
-                modelAndView.setViewName("login");//返回登录页
-            }
+            modelAndView.setViewName("redirect:/login");//返回登录页
         }
         return modelAndView;
     }
-    @RequestMapping(value = "/login")
-    public String login(){//先改为到管理员
-        return "login";
-    }
-    @Autowired
-    private ExaminationService examinationService;
-    @RequestMapping(value = "/toAdmin")
-    public String toAdmin(){
-        return "admin/adminLogin";
+    @RequestMapping(value = "/admin")
+    public String damin(){
+        return "admin/admin";
     }
 
+    /**
+     * 到管理员的登录界面
+     * @return
+     */
+    @RequestMapping(value = "/login")
+    public String login(){//先改为到管理员
+        return "admin/login";
+    }
+
+    /**
+     * 登出重新跳转到登录页
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session){
+        //退出登录的本质就是对session数据的销毁
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+//    @RequestMapping(value = "/toAdmin")应该用不上了
+//    public String toAdmin(){
+//        return "admin/adminLogin";
+//    }
+
+    /**
+     * 跳转到学生列表
+     * @return
+     */
     @RequestMapping(value = "/studentList")
     public ModelAndView studentList(){
         ModelAndView modelAndView = new ModelAndView("admin/studentList");
@@ -82,6 +96,11 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 删除学生
+     * @param stuid
+     * @return
+     */
     @RequestMapping(value = "/delete")
     public ModelAndView delete(@RequestParam Integer stuid){
         TestExample example=new TestExample();
@@ -91,6 +110,12 @@ public class AdminController {
         studentService.deleteByPrimaryKey(stuid);
         return modelAndView;
     }
+
+    /**
+     * 删除考试
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/deleteexam")
     public ModelAndView deleteexam(Integer id){
         Examination examination=examinationService.selectByPrimaryKey(id);
@@ -231,16 +256,24 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session){
-        //退出登录的本质就是对session数据的销毁
-        session.invalidate();
-        return "redirect:index";
-    }
+    /**
+     * 转到添加考试的页面
+     * @return
+     */
     @RequestMapping(value = "/toaddexam")
     public String toaddexam(){
         return "/admin/addExam";
     }
+
+    /**
+     * 执行添加考试的操作
+     * @param subject
+     * @param pn
+     * @param sn
+     * @param sdate
+     * @param edate
+     * @return
+     */
     @RequestMapping(value = "/addExam")
     public ModelAndView addexam (String subject,Integer pn,Integer sn,Date sdate,Date edate){
         Examination examination=new Examination();
@@ -253,6 +286,12 @@ public class AdminController {
         ModelAndView modelAndView=new ModelAndView("redirect:examlist");
         return modelAndView;
     }
+
+    /**
+     * 转到id为id的考试学生列表
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "tostuexamlist")
     public ModelAndView tostulist(Integer id)
     {
@@ -277,6 +316,12 @@ public class AdminController {
         modelAndView.addObject("tests",first);
         return modelAndView;
     }
+
+    /**
+     * 进入批阅界面
+     * @param testid
+     * @return
+     */
     @RequestMapping(value = "read")
     public ModelAndView read(Integer testid){
         Test test=testService.selectByPrimaryKeyWithStu(testid);
@@ -288,6 +333,14 @@ public class AdminController {
         modelAndView.addObject("scores",scores);
         return modelAndView;
     }
+
+    /**
+     * 更改第i题的分数
+     * @param i
+     * @param testid
+     * @param score
+     * @return
+     */
     @RequestMapping(value = "updatescore")
     public ModelAndView updatescore(Integer i,Integer testid,Integer score){
         Test test=testService.selectByPrimaryKey(testid);
@@ -298,12 +351,17 @@ public class AdminController {
 
         return read(testid);
     }
+
+    /**
+     * 提交批阅结果
+     * @param testid
+     * @return
+     */
     @RequestMapping(value = "submuitscore")
     public ModelAndView submit(Integer testid){
         Test test=testService.selectByPrimaryKey(testid);
         test.setIdread(true);
         testService.updateByPrimaryKey(test);
-        ModelAndView modelAndView=new ModelAndView("redirect:tostuexamlist");
         return tostulist(testid);
     }
 }

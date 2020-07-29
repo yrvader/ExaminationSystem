@@ -32,7 +32,8 @@
 <div align="center">
     <br>
     <H1>欢迎光临yydz的考试平台</H1>
-    <a href="${appContext}/admin/login">点击进行登录</a>
+    <a href="${appContext}/admin/login">管理员登录</a>
+    <a href="${appContext}/stu/login">学生登录</a>
 </div>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
