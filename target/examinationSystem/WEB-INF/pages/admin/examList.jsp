@@ -47,6 +47,15 @@
 
     </tbody>
 </table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <ul>
+                <li><a href="${appContext}/admin/addExam">添加考试</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 </body>

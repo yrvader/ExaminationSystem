@@ -42,6 +42,7 @@
         <th>序号</th>
         <th>图片</th>
         <th>修改</th>
+        <th>删除</th>
     </tr>
     </thead>
     <tbody>

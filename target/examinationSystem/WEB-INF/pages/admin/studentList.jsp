@@ -21,12 +21,14 @@
 <div class="container">
     <%--    需修改action--%>
     <form method="post" action="${appContext}/admin/addStudent" class="form-horizontal" role="form">
+        <div class="form-group">
             <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="studentnumberInput" name="stunumber" placeholder="请输入学号">
             </div>
-        <input type="hidden" value="123456" name="password">
-        <span id="studentnumberTips" class="col-sm-3"></span>
+            <span id="studentnumberTips" class="col-sm-3"></span>
+        </div>
+        <input type="hidden" name="password" value="123456">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-block btn-primary">添加</button>
@@ -43,16 +45,28 @@
     </tr>
     </thead>
     <tbody>
+    <%--    循环遍历输出数据,使用jstl--%>
+    <jsp:useBean id="users" scope="request" type="java.util.List"/>
+<%--    需修改--%>
     <c:forEach items="${students}" var="student" varStatus="status">
         <tr>
             <th>${status.count}</th>
             <td>${student.stunumber}</td>
-            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?stuid=${student.stuid}">删除</a></td>
+            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?stuid=${student.uid}">删除</a></td>
         </tr>
     </c:forEach>
 
     </tbody>
 </table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <ul>
+                <li><a href="${appContext}/admin/addStudent">添加学生</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 <script>
@@ -64,7 +78,7 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改examination怎么传入
-                "${appContext}/admin//studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
+                "${appContext}/admin/studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
                     if(result=="恭喜您,该学号可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);
@@ -80,9 +94,13 @@
                 }
             );
         });
+
         //判断表单能否提交
         $("form").submit(function(){
-                return flag;
+                if(flag){
+                    return true;
+                } else
+                    return false;
             }
 
         );

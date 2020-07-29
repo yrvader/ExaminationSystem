@@ -230,8 +230,8 @@
                     <TD align=middle width=30><IMG height=9
                                                    src="images/t.jpg" width=9></TD>
                     <TD><A class=menuChild
-                           href="${appContext}/admin/addStudent"
-                           target="view_frame">分配考场</A></TD>
+                           href="${appContext}/admin/examlist"
+                           target="view_frame">考试列表</A></TD>
                 </TR>
             </TABLE>
 

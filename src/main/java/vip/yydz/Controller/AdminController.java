@@ -81,11 +81,23 @@ public class AdminController {
 
     @RequestMapping(value = "/delete")
     public ModelAndView delete(@RequestParam Integer stuid){
+        TestExample example=new TestExample();
+        example.createCriteria().andTestfkEqualTo(stuid);
+        testService.deleteByExample(example);//先删掉外面的
         ModelAndView modelAndView = new ModelAndView("redirect:studentList");
         studentService.deleteByPrimaryKey(stuid);
         return modelAndView;
     }
-
+    @RequestMapping(value = "/deleteexam")
+    public ModelAndView deleteexam(Integer id){
+        Examination examination=examinationService.selectByPrimaryKey(id);
+        TestExample example=new TestExample();
+        example.createCriteria().andSubjectEqualTo(examination.getSubject());
+        testService.deleteByExample(example);
+        examinationService.deleteByPrimaryKey(id);
+        ModelAndView modelAndView=new ModelAndView("redirect:examlist");
+       return modelAndView;
+    }
     /**
      * 添加学生
      * @param student
@@ -142,8 +154,7 @@ public class AdminController {
 
     /**
      * 为考试添加学生
-     * @param examination
-     * @param student
+     * @param
      * @return
      */
     @RequestMapping(value = "/addStudentToExamOperation")
