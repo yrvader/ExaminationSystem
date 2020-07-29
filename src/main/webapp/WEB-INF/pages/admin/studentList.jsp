@@ -44,10 +44,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-3">
             <ul>
-                <li>用户管理</li>
-                <ul>
-                    <li><a href="${appContext}/admin/addStudent">添加新用户</a></li>
-                </ul>
+                <li><a href="${appContext}/admin/addStudent">添加学生</a></li>
             </ul>
         </div>
     </div>

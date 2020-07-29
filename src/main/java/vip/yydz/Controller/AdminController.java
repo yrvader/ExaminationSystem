@@ -186,6 +186,20 @@ public class AdminController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/subjectExistAjax",produces = {"text/html;charset=UTF-8"})
+    public String subjectExistAjax(String subject) throws UnsupportedEncodingException {
+        URLDecoder.decode("subject","UTF-8");
+        ExaminationExample ee = new ExaminationExample();
+        ee.createCriteria().andSubjectEqualTo(subject);
+        List<Examination> examination = examinationService.selectByExample(ee);
+        if(examination.size()>0 && subject.equals(examination.get(0).getSubject())){
+            return "该科目考试已存在";
+        }else{
+            return "恭喜您,该科目考试可添加";
+        }
+    }
+
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session){
         //退出登录的本质就是对session数据的销毁
