@@ -15,27 +15,9 @@
 </head>
 <body>
 <%--此处最好展示考试名称，可修改--%>
-<h4>考试</h4>
-<%--表单内循环--%>
-<%--<div class="container">--%>
-<%--    <form method="post" enctype="multipart/form-data" action="${appContext}/stu/uploadExam" class="form-horizontal" role="form">--%>
-<%--        <c:forEach items="${paths}" var="path" varStatus="statu">--%>
-<%--            <div class="form-group">--%>
-<%--                <label for="inputPhoto${statu}" class="col-sm-2 control-label">photo</label>--%>
-<%--                <div class="col-sm-10">--%>
-<%--                    <img id="userPhoto${statu}" src="${appContext}/${path}" style="width: 100px;height: 100px;" />--%>
-<%--                    <input type="file" value="${path}"  class="form-control" id="inputPhoto${statu}" name="file" placeholder="photo">--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </c:forEach>--%>
-<%--        <input type="hidden" value="${test.testid}" name="testid" />--%>
-<%--        <div class="form-group">--%>
-<%--            <div class="col-sm-10">--%>
-<%--                <button type="submit" class="btn btn btn-primary">添加图片</button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </form>--%>
-    <a class="btn" href="${appContext}/stu/submit?testid=${test.testid}">提交</a>
+<h4>科目：${test.subject}</h4>
+    <a class="btn btn-success" href="${appContext}/stu/submit?testid=${test.testid}">提交</a>
+    <div class="text-danger">提交后不可修改</div>
     <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr class="bg-info">
@@ -46,7 +28,7 @@
     </tr>
     </thead>
     <tbody>
-<%--    每张图片的循环--%>PRIMARY
+<%--    每张图片的循环--%>
     <c:forEach items="${paths}" var="path" varStatus="status">
        <tr>
            <td>${status.count}</td>

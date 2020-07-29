@@ -29,14 +29,14 @@
         <div class="form-group">
             <label for="pnumberInput" class="col-sm-2 control-label">答卷数量</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="pnumberInput" name="pnumber" placeholder="请输入答卷数量">
+                <input type="text" class="form-control" id="pnumberInput" name="pn" placeholder="请输入答卷数量">
             </div>
             <div class="col-sm-3"></div>
         </div>
         <div class="form-group">
             <label for="snumberInput" class="col-sm-2 control-label">题数</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="snumberInput" name="snumber" placeholder="请输入题数">
+                <input type="text" class="form-control" id="snumberInput" name="sn" placeholder="请输入题数">
             </div>
         </div>
         <div class="form-group">

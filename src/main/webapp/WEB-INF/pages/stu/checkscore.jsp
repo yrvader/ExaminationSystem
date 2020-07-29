@@ -30,7 +30,7 @@
         <tr>
 
             <td>${test.subject}</td>
-            <td>${status.count}</td>
+            <td>${scores.get(status.count-1)}</td>
         </tr>
     </c:forEach>
 

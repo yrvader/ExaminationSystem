@@ -80,7 +80,7 @@ public class TestServiceImpl implements TestService {
         String[] list=paths.split(";");
         list[i-1]=path;
         String upadtepath=list[0];
-        for(int j=1;j<list.length;i++){
+        for(int j=1;j<list.length;j++){
             upadtepath=upadtepath+";"+list[j];
         }
         test.setPicturepaths(upadtepath);

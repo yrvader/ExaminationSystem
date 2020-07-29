@@ -17,6 +17,7 @@ import vip.yydz.service.StudentService;
 import vip.yydz.service.TestService;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -59,7 +60,7 @@ public class AdminController {
         return modelAndView;
     }
     @RequestMapping(value = "/login")
-    public String login(){
+    public String login(){//先改为到管理员
         return "login";
     }
     @Autowired
@@ -130,7 +131,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/examlist")
     public ModelAndView examList(){
-        ModelAndView modelAndView = new ModelAndView("admin/examlist");
+        ModelAndView modelAndView = new ModelAndView("admin/examList");
         ExaminationExample ee = new ExaminationExample();
         ee.createCriteria().andIdIsNotNull();
         List<Examination> exams = examinationService.selectByExample(ee);
@@ -186,6 +187,7 @@ public class AdminController {
         }
         t.setPicturepaths(path);
         testService.insert(t);
+        modelAndView.addObject("exam",examination);
         return modelAndView;
     }
 
@@ -204,9 +206,9 @@ public class AdminController {
             testExample.createCriteria().andTestfkEqualTo(student.getStuid()).andSubjectEqualTo(examination.getSubject());
             List<Test> t = testService.selectByExample(testExample);
             if (t.size()>0 && examination.getSubject().equals(t.get(0).getSubject())){
-                return "该学生可添加";
-            }else{
                 return "该考试不可添加此学号的学生";
+            }else{
+                return "该学生可添加";
             }
         }else{
             return "该学号不存在";
@@ -233,5 +235,20 @@ public class AdminController {
         session.invalidate();
         return "redirect:index";
     }
-
+    @RequestMapping(value = "/toaddexam")
+    public String toaddexam(){
+        return "/admin/addExam";
+    }
+    @RequestMapping(value = "/addExam")
+    public ModelAndView addexam (String subject,Integer pn,Integer sn,Date sdate,Date edate){
+        Examination examination=new Examination();
+        examination.setSubject(subject);
+        examination.setPn(pn);
+        examination.setSn(sn);
+        examination.setSdate(sdate);
+        examination.setEdate(edate);
+        examinationService.insert(examination);
+        ModelAndView modelAndView=new ModelAndView("redirect:examlist");
+        return modelAndView;
+    }
 }

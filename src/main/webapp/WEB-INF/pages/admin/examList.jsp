@@ -18,6 +18,7 @@
 <%--    如何取得传递过来的数据,使用表达式直接访问对象--%>
 <%--${users}--%>
 <%--组装传递过来的数据--%>
+<a href="${appContext}/admin/toaddexam">添加考试</a>
 <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr class="bg-info">
@@ -44,18 +45,8 @@
             <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/deleteexam?id=${exam.id}">删除</a></td>
         </tr>
     </c:forEach>
-
     </tbody>
 </table>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-3">
-            <ul>
-                <li><a href="${appContext}/admin/addExam">添加考试</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 </body>

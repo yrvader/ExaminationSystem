@@ -45,28 +45,16 @@
     </tr>
     </thead>
     <tbody>
-    <%--    循环遍历输出数据,使用jstl--%>
-    <jsp:useBean id="users" scope="request" type="java.util.List"/>
-<%--    需修改--%>
     <c:forEach items="${students}" var="student" varStatus="status">
         <tr>
             <th>${status.count}</th>
             <td>${student.stunumber}</td>
-            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?stuid=${student.uid}">删除</a></td>
+            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?stuid=${student.stuid}">删除</a></td>
         </tr>
     </c:forEach>
 
     </tbody>
 </table>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-3">
-            <ul>
-                <li><a href="${appContext}/admin/addStudent">添加学生</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 <script>

@@ -29,7 +29,7 @@
         <div class="form-group">
             <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="studentnumberInput" name="studentnumber" placeholder="请输入学号">
+                <input type="text" class="form-control" id="studentnumberInput" name="stunumber" placeholder="请输入学号">
             </div>
             <span id="studentnumberTips" class="col-sm-3"></span>
         </div>
@@ -51,18 +51,18 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改examination怎么传入
-                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()+"id=${exam.id}"),
+                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()+"&id=${exam.id}"),
                 function(result){
                     if(result=="该学生可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);
                         $("#studentnumberTips").parent().addClass("has-error");
                         $("button").removeClass("disabled");
-
+                        flag=true;
                     }else{
                         $("#studentnumberTips").addClass("success").text(result);
                         $("#studentnumberTips").parent().addClass("has-success");
                         $("button").addClass("disabled");
-                        flag=true;
+
                     }
                 }
             );
