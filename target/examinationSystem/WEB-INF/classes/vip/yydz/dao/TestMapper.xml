@@ -11,6 +11,7 @@
     <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
     <result column="snumber" jdbcType="INTEGER" property="snumber" />
     <result column="scores" jdbcType="VARCHAR" property="scores" />
+    <result column="idread" jdbcType="BIT" property="idread" />
     <result column="testfk" jdbcType="INTEGER" property="testfk" />
   </resultMap>
   <resultMap id="BaseResultMapWithStu" type="vip.yydz.domain.Test">
@@ -23,16 +24,14 @@
     <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
     <result column="snumber" jdbcType="INTEGER" property="snumber" />
     <result column="scores" jdbcType="VARCHAR" property="scores" />
+    <result column="idread" jdbcType="BIT" property="idread" />
     <result column="testfk" jdbcType="INTEGER" property="testfk" />
-    <association property="student" javaType="vip.yydz.domain.Student">
+    <association property="student" javaType="Student">
       <id column="stuid" jdbcType="INTEGER" property="stuid" />
       <result column="stunumber" jdbcType="VARCHAR" property="stunumber" />
       <result column="password" jdbcType="VARCHAR" property="password" />
     </association>
   </resultMap>
-  <sql id="Base_Column_List_With_Stu">
-    t.*,s.*
-  </sql>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -92,7 +91,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    testid, subject, sdate, edate, isubmit, pnumber, picturepaths, snumber, scores, testfk
+    testid, subject, sdate, edate, isubmit, pnumber, picturepaths, snumber, scores, idread, 
+    testfk
+  </sql>
+  <sql id="Base_Column_List_With_Stu">
+    t.*,s.*
   </sql>
   <select id="selectByExample" parameterType="vip.yydz.domain.TestExample" resultMap="BaseResultMap">
     select
@@ -147,12 +150,12 @@
   <insert id="insert" parameterType="vip.yydz.domain.Test">
     insert into test (testid, subject, sdate, 
       edate, isubmit, pnumber, picturepaths, 
-      snumber, scores, testfk
-      )
+      snumber, scores, idread, 
+      testfk)
     values (#{testid,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{sdate,jdbcType=DATE}, 
       #{edate,jdbcType=DATE}, #{isubmit,jdbcType=BIT}, #{pnumber,jdbcType=INTEGER}, #{picturepaths,jdbcType=VARCHAR}, 
-      #{snumber,jdbcType=INTEGER}, #{scores,jdbcType=VARCHAR}, #{testfk,jdbcType=INTEGER}
-      )
+      #{snumber,jdbcType=INTEGER}, #{scores,jdbcType=VARCHAR}, #{idread,jdbcType=BIT}, 
+      #{testfk,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="vip.yydz.domain.Test">
     insert into test
@@ -183,6 +186,9 @@
       </if>
       <if test="scores != null">
         scores,
+      </if>
+      <if test="idread != null">
+        idread,
       </if>
       <if test="testfk != null">
         testfk,
@@ -215,6 +221,9 @@
       </if>
       <if test="scores != null">
         #{scores,jdbcType=VARCHAR},
+      </if>
+      <if test="idread != null">
+        #{idread,jdbcType=BIT},
       </if>
       <if test="testfk != null">
         #{testfk,jdbcType=INTEGER},
@@ -257,6 +266,9 @@
       <if test="record.scores != null">
         scores = #{record.scores,jdbcType=VARCHAR},
       </if>
+      <if test="record.idread != null">
+        idread = #{record.idread,jdbcType=BIT},
+      </if>
       <if test="record.testfk != null">
         testfk = #{record.testfk,jdbcType=INTEGER},
       </if>
@@ -276,6 +288,7 @@
       picturepaths = #{record.picturepaths,jdbcType=VARCHAR},
       snumber = #{record.snumber,jdbcType=INTEGER},
       scores = #{record.scores,jdbcType=VARCHAR},
+      idread = #{record.idread,jdbcType=BIT},
       testfk = #{record.testfk,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -308,6 +321,9 @@
       <if test="scores != null">
         scores = #{scores,jdbcType=VARCHAR},
       </if>
+      <if test="idread != null">
+        idread = #{idread,jdbcType=BIT},
+      </if>
       <if test="testfk != null">
         testfk = #{testfk,jdbcType=INTEGER},
       </if>
@@ -324,6 +340,7 @@
       picturepaths = #{picturepaths,jdbcType=VARCHAR},
       snumber = #{snumber,jdbcType=INTEGER},
       scores = #{scores,jdbcType=VARCHAR},
+      idread = #{idread,jdbcType=BIT},
       testfk = #{testfk,jdbcType=INTEGER}
     where testid = #{testid,jdbcType=INTEGER}
   </update>

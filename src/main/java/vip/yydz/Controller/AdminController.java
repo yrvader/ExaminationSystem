@@ -288,4 +288,22 @@ public class AdminController {
         modelAndView.addObject("scores",scores);
         return modelAndView;
     }
+    @RequestMapping(value = "updatescore")
+    public ModelAndView updatescore(Integer i,Integer testid,Integer score){
+        Test test=testService.selectByPrimaryKey(testid);
+        testService.upadteIthScore(i,test,score);
+        test=testService.selectByPrimaryKeyWithStu(testid);
+        String[] paths=testService.getPaths(test);
+        Integer[] scores=testService.getScores(test);
+
+        return read(testid);
+    }
+    @RequestMapping(value = "submuitscore")
+    public ModelAndView submit(Integer testid){
+        Test test=testService.selectByPrimaryKey(testid);
+        test.setIdread(true);
+        testService.updateByPrimaryKey(test);
+        ModelAndView modelAndView=new ModelAndView("redirect:tostuexamlist");
+        return tostulist(testid);
+    }
 }

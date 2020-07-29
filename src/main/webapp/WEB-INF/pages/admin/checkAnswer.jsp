@@ -17,26 +17,32 @@
 <body>
 <div class="container-fluid">
     <div class="row col-12">
-        <h3>${test.student.stunumber}的${test.student}考卷</h3>
+        <h3>${test.student.stunumber}的${test.subject}考卷</h3>
     </div>
 </div>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-3">
-            <form method="post" action="${appContext}/stu/updatepassword" class="form-horizontal" role="form">
-                <c:forEach items="${scores}" var="score" varStatus="status">
-                    <div>第${status.count}题原分数${score}</div>
-                    <input type="text" name="score" pattern="([0-9]|[1-9][0-9])" required="required" />
-                </c:forEach>
-
-            </form>
-            <div class="col-sm-offset-2 col-sm-10">
+            <c:forEach items="${scores}" var="score" varStatus="status">
+            <form method="post" action="${appContext}/admin/updatescore" class="form-horizontal" role="form">
+                <div>第${status.count}题原分数${score}</div>
+                <input type="hidden" name="i" value="${status.count}" />
+                <input type="hidden" name="testid" value="${test.testid}" />
+                <input type="text" name="score" pattern="([0-9]|[1-9][0-9])" required="required" />
+                <div class="col-sm-2 col-lg-4">
                     <button type="submit" class="btn btn-block btn-primary">修改</button>
+                </div>
+            </form>
+            </c:forEach>
+            <div class="col-sm-12 col-md-9">
+                <a class="btn btn-primary" href="${appContext}/admin/submuitscore?id=${test.testid}">提交</a>
             </div>
         </div>
-        <div class="col-sm-12 col-md-9">
-
+        <div class="col-sm-12 col-md-3">
+            <c:forEach items="${paths}" var="path" varStatus="status">
+                <img   src="${appContext}/${path}" width="200px" height="250px">
+            </c:forEach>
         </div>
     </div>
 </div>
