@@ -41,7 +41,7 @@
             <td>${exam.edate}</td>
             <td><a class="btn btn-info btn-sm" href="${appContext}/admin/addStudentToExam?id=${exam.id}">添加学生</a></td>
             <td><a class="btn btn-info btn-sm" href="${appContext}/admin/checkAnswer?id=${exam.id}">批阅</a></td>
-            <td><a class="btn btn-danger btn-sm" href="${appContext}/user/delete?id=${exam.id}">删除</a></td>
+            <td><a class="btn btn-danger btn-sm" href="${appContext}/admin/delete?id=${exam.id}">删除</a></td>
         </tr>
     </c:forEach>
 

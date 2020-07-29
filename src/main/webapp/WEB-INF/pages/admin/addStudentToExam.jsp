@@ -25,6 +25,7 @@
 <div class="container">
     <%--    需修改action--%>
     <form method="post" action="${appContext}/admin/addStudentToExamOperation" class="form-horizontal" role="form">
+        <input type="hidden" value="${exam.id}" name="id">
         <div class="form-group">
             <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-6">
@@ -50,7 +51,7 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改examination怎么传入
-                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
+                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()+"id=${exam.id}"),
                 function(result){
                     if(result=="该学生可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);

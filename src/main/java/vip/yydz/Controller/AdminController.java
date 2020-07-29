@@ -86,6 +86,11 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 添加学生
+     * @param student
+     * @return
+     */
     @RequestMapping(value = "/addStudent")
     public ModelAndView addStudent(Student student){
         ModelAndView modelAndView = new ModelAndView("redirect:studentList");
@@ -121,9 +126,15 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 转到添加界面
+     * @param id
+     * @return
+     */
 //    考试科目信息显示有问题
     @RequestMapping(value = "/addStudentToExam")
-    public ModelAndView addStudentToExam(Examination examination){
+    public ModelAndView addStudentToExam(Integer id){
+        Examination examination=examinationService.selectByPrimaryKey(id);
         ModelAndView modelAndView = new ModelAndView("admin/addStudentToExam");
         modelAndView.addObject("exam",examination);
         return modelAndView;
@@ -136,8 +147,12 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = "/addStudentToExamOperation")
-    public ModelAndView addStudentToExamOperation(Examination examination, Student student){
+    public ModelAndView addStudentToExamOperation(Integer id, String stunumber){
         ModelAndView modelAndView = new ModelAndView("admin/addStudentToExam");
+        Examination examination=examinationService.selectByPrimaryKey(id);
+        StudentExample example=new StudentExample();
+        example.createCriteria().andStunumberEqualTo(stunumber);
+        Student student=studentService.selectByExample(example).get(0);
         Test t = new Test();
         t.setSubject(examination.getSubject());
         t.setSdate(examination.getSdate());
@@ -165,9 +180,10 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping(value = "/examStudentExistAjax",produces = {"text/html;charset=UTF-8"})
-    public String examStudentExistAjax(String studentnumber, Examination examination) throws UnsupportedEncodingException {
+    public String examStudentExistAjax(String studentnumber, Integer id) throws UnsupportedEncodingException {
         //去数据库中查找是否已存在同名用户,如果存在同名用户则返回真实的user对象,如果不存在返回null
         URLDecoder.decode("studentnumber","UTF-8");
+        Examination examination=examinationService.selectByPrimaryKey(id);
         StudentExample se = new StudentExample();
         se.createCriteria().andStunumberEqualTo(studentnumber);
         List<Student> students = studentService.selectByExample(se);

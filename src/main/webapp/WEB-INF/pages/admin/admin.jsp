@@ -222,8 +222,8 @@
                     <TD align=middle width=30><IMG height=9
                                                    src="images/t.jpg" width=9></TD>
                     <TD><A class=menuChild
-                           href="addstudent.html"
-                           target="view_frame">添加学生</A></TD>
+                           href="${appContext}/admin/studentList"
+                           target="view_frame">学生列表</A></TD>
                 </TR>
 
                 <TR height=25>
