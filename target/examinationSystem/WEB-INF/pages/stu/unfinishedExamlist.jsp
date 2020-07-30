@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="${appContext}/css/bootstrap.css" />
 </head>
 <body>
-<h4>未完成的考试信息</h4>
+<h4>未完成的考试列表</h4>
 <%--    如何取得传递过来的数据,使用表达式直接访问对象--%>
 <%--${users}--%>
 <%--组装传递过来的数据--%>
@@ -47,7 +47,6 @@
 <%--            <c:set var="now">--%>
 <%--                <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" type="date"/>--%>
 <%--            </c:set>--%>
-            <td>${date}</td>
             <c:if test="${test.sdate <= now and test.edate>=now }">
 
             </c:if>
@@ -59,7 +58,7 @@
                     <td><a class="btn btn-info btn-sm" href="${appContext}/stu/touploadExam?testid=${test.testid}">提交试卷</a></td>
                 </c:when>
                 <c:otherwise>
-                    <td><a class="btn btn-info btn-sm" >提交时间已过</a></td>
+                    <td><a class="btn btn-info btn-sm btn-danger" >提交时间已过</a></td>
                 </c:otherwise>
             </c:choose>
         </tr>

@@ -222,7 +222,7 @@
                     <TD align=middle width=30><IMG height=9
                                                    src="images/t.jpg" width=9></TD>
                     <TD><A class=menuChild
-                           href="${appContext}/admin/studentList"
+                           href="${appContext}/admin/Listofstudent"
                            target="view_frame">学生列表</A></TD>
                 </TR>
 

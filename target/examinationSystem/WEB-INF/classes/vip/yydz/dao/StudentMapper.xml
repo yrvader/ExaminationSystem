@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.yydz.dao.StudentMapper">
-
   <resultMap id="BaseResultMap" type="vip.yydz.domain.Student">
     <id column="stuid" jdbcType="INTEGER" property="stuid" />
     <result column="stunumber" jdbcType="VARCHAR" property="stunumber" />
@@ -11,7 +10,7 @@
     <id column="stuid" jdbcType="INTEGER" property="stuid" />
     <result column="stunumber" jdbcType="VARCHAR" property="stunumber" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <collection property="tests" ofType="vip.yydz.domain.Test">
+    <collection ofType="vip.yydz.domain.Test" property="tests">
       <id column="testid" jdbcType="INTEGER" property="testid" />
       <result column="subject" jdbcType="VARCHAR" property="subject" />
       <result column="sdate" jdbcType="DATE" property="sdate" />
@@ -21,6 +20,7 @@
       <result column="picturepaths" jdbcType="VARCHAR" property="picturepaths" />
       <result column="snumber" jdbcType="INTEGER" property="snumber" />
       <result column="scores" jdbcType="VARCHAR" property="scores" />
+      <result column="idread" jdbcType="BIT" property="idread" />
       <result column="testfk" jdbcType="INTEGER" property="testfk" />
     </collection>
   </resultMap>
@@ -82,11 +82,11 @@
       </foreach>
     </where>
   </sql>
+  <sql id="Base_Column_List_With_Test">
+   s.*,t.*
+  </sql>
   <sql id="Base_Column_List">
     stuid, stunumber, password
-  </sql>
-  <sql id="Base_Column_List_With_Test">
-   *
   </sql>
   <select id="selectByExample" parameterType="vip.yydz.domain.StudentExample" resultMap="BaseResultMap">
     select
@@ -102,13 +102,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExampleWithTest" parameterType="vip.yydz.domain.StudentExample" resultMap="BaseResultMap">
+  <select id="selectByExampleWithTest" parameterType="vip.yydz.domain.StudentExample" resultMap="BaseResultMapWithTest">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
-    from student s left join test t on s.stuid=t.testfk
+    <include refid="Base_Column_List_With_Test" />
+    from student s join test t on t.testfk=s.stuid
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -125,8 +125,8 @@
   <select id="selectByPrimaryKeyWithTest" parameterType="java.lang.Integer" resultMap="BaseResultMapWithTest">
     select
     <include refid="Base_Column_List_With_Test" />
-    from student s ,test t
-    where s.stuid=t.testfk and stuid = #{stuid,jdbcType=INTEGER}
+    from student s join test t on t.testfk=s.stuid
+    where stuid = #{stuid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from student

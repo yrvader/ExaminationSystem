@@ -51,15 +51,15 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改路径
-                "${appContext}/admin/studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
+                "${appContext}/admin/ExistAjaxofstudent?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
                     if(result=="该学号已存在"){
                         $("#studentnumberTips").addClass("danger").text(result);
-                        $("#studentnumberTips").parent().addClass("has-error");
+                        $("#studentnumberTips").parent().addClass("text-danger");
                         $("button").addClass("disabled");
                     }else{
                         $("#studentnumberTips").addClass("success").text(result);
-                        $("#studentnumberTips").parent().addClass("has-success");
+                        $("#studentnumberTips").parent().addClass("text-success");
                         $("button").removeClass("disabled");
                         flag=true;
                     }

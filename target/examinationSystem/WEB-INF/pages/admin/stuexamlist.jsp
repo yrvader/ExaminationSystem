@@ -2,45 +2,46 @@
   Created by IntelliJ IDEA.
   User: 微软
   Date: 2020/7/28
-  Time: 11:44
+  Time: 10:06
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>添加考试学生</title>
+    <title>学生列表</title>
     <link rel="stylesheet" href="${appContext}/css/bootstrap.css" />
 </head>
 <body>
-<div class="container">
-    <div class="row">
-<%--        需更改为展示Exam.subject--%>
-        考试管理 科目：${exam.subject}
-    </div>
-</div>
-<a href="${appContext}/admin/examlist" >返回考试列表</a>
-<%--spring的工作就是自动封装和扫描bean--%>
-<div class="container">
-    <%--    需修改action--%>
-    <form method="post" action="${appContext}/admin/addStudentToExamOperation" class="form-horizontal" role="form">
-        <input type="hidden" value="${exam.id}" name="id">
-        <div class="form-group">
-            <label for="studentnumberInput" class="col-sm-2 control-label">学号</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" id="studentnumberInput" name="stunumber" placeholder="请输入学号">
-            </div>
-            <span id="studentnumberTips" class="col-sm-3"></span>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-block btn-primary">添加</button>
-            </div>
-        </div>
-    </form>
-</div>
+<h4>${exam.subject}考试的学生列表</h4>
+<%--    如何取得传递过来的数据,使用表达式直接访问对象--%>
+<%--${users}--%>
+<%--组装传递过来的数据--%>
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr class="bg-info">
+        <th>序号#</th>
+        <th>学号</th>
+        <th>状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${tests}" var="test" varStatus="status">
+        <tr>
+            <th>${status.count}</th>
+            <td>${test.student.stunumber}</td>
+            <c:if test="${test.idread==true}">
+                <td>已批阅</td>
+            </c:if>
+            <c:if test="${test.idread==false}">
+                <td><a href="${appContext}/admin/read?testid=${test.testid}">点击批阅</a> </td>
+            </c:if>
+        </tr>
+    </c:forEach>
+
+    </tbody>
+</table>
 <script src="${appContext}/js/jquery-3.3.1.js"></script>
 <script src="${appContext}/js/bootstrap.js"></script>
 <script>
@@ -52,16 +53,16 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改examination怎么传入
-                "${appContext}/admin/examStudentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()+"&id=${exam.id}"),
+                "${appContext}/admin/studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
-                    if(result=="该学生可添加"){
+                    if(result=="恭喜您,该学号可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);
-                        $("#studentnumberTips").parent().addClass("text-success");
+                        $("#studentnumberTips").parent().addClass("has-error");
                         $("button").removeClass("disabled");
                         flag=true;
                     }else{
                         $("#studentnumberTips").addClass("success").text(result);
-                        $("#studentnumberTips").parent().addClass("text-danger");
+                        $("#studentnumberTips").parent().addClass("has-success");
                         $("button").addClass("disabled");
 
                     }
@@ -82,3 +83,4 @@
 </script>
 </body>
 </html>
+

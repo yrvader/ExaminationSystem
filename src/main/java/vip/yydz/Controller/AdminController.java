@@ -45,9 +45,9 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         if (username.equals(student.getStunumber()) && password.equals(student.getPassword())) {
             session.setAttribute("admin",new AdminController());
-            modelAndView.setViewName("redirect:/admin");
+            modelAndView.setViewName("redirect:/admin/admin");
         } else {
-            modelAndView.setViewName("redirect:/login");//返回登录页
+            modelAndView.setViewName("redirect:/admin/login");//返回登录页
         }
         return modelAndView;
     }
@@ -74,7 +74,7 @@ public class AdminController {
     public String logout(HttpSession session){
         //退出登录的本质就是对session数据的销毁
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/admin/login";
     }
 
 //    @RequestMapping(value = "/toAdmin")应该用不上了
@@ -86,7 +86,7 @@ public class AdminController {
      * 跳转到学生列表
      * @return
      */
-    @RequestMapping(value = "/studentList")
+    @RequestMapping(value = "/Listofstudent")
     public ModelAndView studentList(){
         ModelAndView modelAndView = new ModelAndView("admin/studentList");
         StudentExample se = new StudentExample();
@@ -106,7 +106,7 @@ public class AdminController {
         TestExample example=new TestExample();
         example.createCriteria().andTestfkEqualTo(stuid);
         testService.deleteByExample(example);//先删掉外面的
-        ModelAndView modelAndView = new ModelAndView("redirect:studentList");
+        ModelAndView modelAndView = new ModelAndView("redirect:Listofstudent");
         studentService.deleteByPrimaryKey(stuid);
         return modelAndView;
     }
@@ -133,13 +133,13 @@ public class AdminController {
      */
     @RequestMapping(value = "/addStudent")
     public ModelAndView addStudent(Student student){
-        ModelAndView modelAndView = new ModelAndView("redirect:studentList");
+        ModelAndView modelAndView = new ModelAndView("redirect:Listofstudent");
         studentService.insert(student);
         return modelAndView;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/studentExistAjax",produces = {"text/html;charset=UTF-8"})
+    @RequestMapping(value = "/ExistAjaxofstudent",produces = {"text/html;charset=UTF-8"})
     public String studentExistAjax(String studentnumber) throws UnsupportedEncodingException {
         URLDecoder.decode("studentnumber","UTF-8");
         StudentExample se = new StudentExample();
@@ -359,9 +359,11 @@ public class AdminController {
      */
     @RequestMapping(value = "submuitscore")
     public ModelAndView submit(Integer testid){
+        ExaminationExample examinationExample=new ExaminationExample();
         Test test=testService.selectByPrimaryKey(testid);
+        examinationExample.createCriteria().andSubjectEqualTo(test.getSubject());
         test.setIdread(true);
         testService.updateByPrimaryKey(test);
-        return tostulist(testid);
+        return tostulist(examinationService.selectByExample(examinationExample).get(0).getId());
     }
 }

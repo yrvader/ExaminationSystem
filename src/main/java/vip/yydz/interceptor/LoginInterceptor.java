@@ -36,13 +36,16 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
             else if(uri.indexOf("/uploadExam")>=0||uri.indexOf("/submit")>=0){
                 session = request.getSession();
-                Test examination = (Test) session.getAttribute("exam");
+                Test examination = (Test) session.getAttribute("test");
                 Date myDate=new Date();
                 if (examination!=null&&examination.getEdate().before(myDate))
                 {
                     request.setAttribute("msg","考试已结束");
                     request.getRequestDispatcher("/stu/stu").forward(request,response);
                     return false;
+                }
+                else {
+                    return  true;
                 }
             }
             else {

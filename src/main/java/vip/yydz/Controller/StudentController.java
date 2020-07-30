@@ -37,20 +37,21 @@ public class StudentController {
     {
         return "stu/login";
     }
-    @RequestMapping(value = "logincheck")
+    @RequestMapping(value = "/logincheck")
     public ModelAndView logincheck(Student student, HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(student);
         StudentExample studentExample = new StudentExample();
-        studentExample.createCriteria().andPasswordEqualTo(student.getPassword());
-        studentExample.createCriteria().andStunumberEqualTo(student.getStunumber());
+        studentExample.createCriteria().andPasswordEqualTo(student.getPassword()).andStunumberEqualTo(student.getStunumber());//这个地方是有问题的逆向工程出了点问题，标准的顺序不同结果不一样
+
         List<Student> students = studentService.selectByExampleWithTest(studentExample);
+        System.out.println(student);
         if (!students.isEmpty()) {
-            modelAndView.setViewName("redirect:/tostu");//重定向管理首页
+            modelAndView.setViewName("redirect:/stu/tostu");//重定向管理首页
             session.setAttribute("stu", students.get(0));//封装学生
             //model目的就是把数据封装在  request对象里传递,
         } else {//不存在
-            modelAndView.setViewName("redirect:login");//返回登录页
+            modelAndView.setViewName("redirect:/stu/login");//返回登录页
             modelAndView.addObject("msg","用户名或密码错误");
         }
         return modelAndView;
@@ -68,11 +69,12 @@ public class StudentController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "logout")
+    @RequestMapping(value = "/logout")
     public String logout(HttpSession session){
         //退出登录的本质就是对session数据的销毁
         session.invalidate();
-        return "redirect:login";
+       // session.removeAttribute("stu");
+        return "redirect:/stu/login";
     }
     /**
      * 跳转到更新密码的界面
@@ -109,8 +111,7 @@ public class StudentController {
     {
         ModelAndView modelAndView=new ModelAndView();
         TestExample example=new TestExample();
-        example.createCriteria().andIsubmitEqualTo(false);
-        example.createCriteria().andTestfkEqualTo(stuid);
+        example.createCriteria().andIsubmitEqualTo(false).andTestfkEqualTo(stuid);//这个没问题
         List<Test> tests=testService.selectByExample(example);//搜索
         modelAndView.addObject("tests" ,tests);//给页面一个test的集合
         modelAndView.addObject("date",new Date());//当前时间
@@ -121,7 +122,6 @@ public class StudentController {
     /**
      * 转到更新图片的界面
      * @param testid 要更新的试卷
-     * @param session 好像没啥用
      * @return
      */
     @RequestMapping(value = "/touploadExam")
@@ -132,7 +132,7 @@ public class StudentController {
         String[] paths=testService.getPaths(test);
         System.out.println(test);
         System.out.println(testService.getPaths(test));
-        session.setAttribute("test",test);
+       session.setAttribute("test",test);
         modelAndView.addObject("paths",paths);
         modelAndView.setViewName("/stu/uploadExam");
         return modelAndView;
@@ -162,7 +162,6 @@ public class StudentController {
         ModelAndView modelAndView = new ModelAndView("stu/uploadExam");
         modelAndView.addObject("test",test);//设置新的test
         modelAndView.addObject("paths",testService.getPaths(test));
-        TestExample testExample=new TestExample();
         return modelAndView;
     }
 

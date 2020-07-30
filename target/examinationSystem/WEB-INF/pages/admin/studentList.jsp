@@ -66,7 +66,7 @@
         $("#studentnumberInput").keyup(function () {
             $.get(
                 // 需修改examination怎么传入
-                "${appContext}/admin/studentExistAjax?studentnumber="+encodeURI($("#studentnumberInput").val()),
+                "${appContext}/admin/ExistAjaxofstudent?studentnumber="+encodeURI($("#studentnumberInput").val()),
                 function(result){
                     if(result=="恭喜您,该学号可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);

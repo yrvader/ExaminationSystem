@@ -9,6 +9,7 @@ public class Student {
 
     private String password;
     private List<Test> tests;
+    public Student(){}
 
     public Student(Integer stuid, String stunumber, String password, List<Test> tests) {
         this.stuid = stuid;
@@ -16,9 +17,6 @@ public class Student {
         this.password = password;
         this.tests = tests;
     }
-    public Student(){}
-
-//    public Integer cal(){return 1;}
 
     public Integer getStuid() {
         return stuid;

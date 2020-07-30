@@ -21,6 +21,7 @@
         考试管理 科目：${exam.subject}
     </div>
 </div>
+<a href="${appContext}/admin/examlist" >返回考试列表</a>
 <%--spring的工作就是自动封装和扫描bean--%>
 <div class="container">
     <%--    需修改action--%>
@@ -55,12 +56,12 @@
                 function(result){
                     if(result=="该学生可添加"){
                         $("#studentnumberTips").addClass("danger").text(result);
-                        $("#studentnumberTips").parent().addClass("has-error");
+                        $("#studentnumberTips").parent().addClass("text-success");
                         $("button").removeClass("disabled");
                         flag=true;
                     }else{
                         $("#studentnumberTips").addClass("success").text(result);
-                        $("#studentnumberTips").parent().addClass("has-success");
+                        $("#studentnumberTips").parent().addClass("text-danger");
                         $("button").addClass("disabled");
 
                     }
