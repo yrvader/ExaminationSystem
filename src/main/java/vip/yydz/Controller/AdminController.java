@@ -207,10 +207,10 @@ public class AdminController {
             score += ","+(i+1)+"=0";
         }
         t.setScores(score);
-        String path = new String("1");
+        String path = new String("images/upload/unload.JPG");
         for (int i=1;i<t.getSnumber();i++)
         {
-            path += ";"+(i+1);
+            path += ";"+"images/upload/unload.JPG";
         }
         t.setPicturepaths(path);
         testService.insert(t);

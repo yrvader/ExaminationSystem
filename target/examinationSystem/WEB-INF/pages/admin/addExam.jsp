@@ -22,33 +22,33 @@
         <div class="form-group">
             <label for="subjectInput" class="col-sm-2 control-label">科目</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="subjectInput" name="subject" placeholder="请输入科目">
+                <input type="text" required="required" class="form-control" id="subjectInput" name="subject" placeholder="请输入科目">
             </div>
             <span id="subjectTips" class="col-sm-3"></span>
         </div>
         <div class="form-group">
             <label for="pnumberInput" class="col-sm-2 control-label">答卷数量</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="pnumberInput" name="pn" placeholder="请输入答卷数量">
+                <input type="text" class="form-control" required="required"  id="pnumberInput" name="pn" placeholder="请输入答卷数量">
             </div>
             <div class="col-sm-3"></div>
         </div>
         <div class="form-group">
             <label for="snumberInput" class="col-sm-2 control-label">题数</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="snumberInput" name="sn" placeholder="请输入题数">
+                <input type="text" class="form-control" required="required" id="snumberInput" name="sn" placeholder="请输入题数">
             </div>
         </div>
         <div class="form-group">
             <label for="sdateInput" class="col-sm-2 control-label">开始时间</label>
             <div class="col-sm-6">
-                <input type="date" class="form-control" id="sdateInput" name="sdate" placeholder="请输入考试开始时间">
+                <input type="date" class="form-control" required="required" id="sdateInput" name="sdate" placeholder="请输入考试开始时间">
             </div>
         </div>
         <div class="form-group">
             <label for="edateInput" class="col-sm-2 control-label">结束时间</label>
             <div class="col-sm-6">
-                <input type="date" class="form-control" id="edateInput" name="edate" placeholder="请输入考试结束时间">
+                <input type="date" class="form-control" required="required" id="edateInput" name="edate" placeholder="请输入考试结束时间">
             </div>
         </div>
         <div class="form-group">

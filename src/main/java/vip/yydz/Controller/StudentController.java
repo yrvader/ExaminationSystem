@@ -96,8 +96,8 @@ public class StudentController {
     @RequestMapping(value = "updatepassword")
     public String upadteoassword(Student student,HttpSession session){
         System.out.println(student);
-        studentService.updateByPrimaryKeySelective(student);
-        student= studentService.selectByPrimaryKey(student.getStuid());
+        studentService.updateByPrimaryKey(student);
+        student= studentService.selectByPrimaryKeyWithTest(student.getStuid());
         session.setAttribute("stu",student);//更新session
         return "stu/success";//返回到显示成功的界面
     }
@@ -127,6 +127,10 @@ public class StudentController {
     @RequestMapping(value = "/touploadExam")
     public ModelAndView touploadExam(Integer testid,HttpSession session){
         Test test=testService.selectByPrimaryKey(testid);
+        if(test.getEdate().before(new Date())){
+            ModelAndView modelAndView = new ModelAndView("stu/stu");
+            return modelAndView;
+        }
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("test",test);
         String[] paths=testService.getPaths(test);
@@ -149,7 +153,11 @@ public class StudentController {
      */
     @RequestMapping(value = "/uploadExam")
     public ModelAndView update(@RequestParam(value = "file") MultipartFile file,Integer testid ,Integer i,HttpServletRequest request) throws IOException {
-        Test test=testService.selectByPrimaryKey(testid);
+        Test test=testService.selectByPrimaryKeyWithStu(testid);
+        if(test.getEdate().before(new Date())){
+            ModelAndView modelAndView = new ModelAndView("stu/stu");
+            return modelAndView;
+        }
         String path="D:\\study\\HIT\\upload";
         String filename = testid + "-"+i + file.getOriginalFilename();
         File file1 = new File(path, filename);
@@ -182,8 +190,7 @@ public class StudentController {
         ModelAndView modelAndView=new ModelAndView("/stu/checkscore");
         Student student=(Student)session.getAttribute("stu");
         TestExample example=new TestExample();
-        example.createCriteria().andIsubmitEqualTo(true);
-        example.createCriteria().andTestfkEqualTo(student.getStuid());
+        example.createCriteria().andIsubmitEqualTo(true).andTestfkEqualTo(student.getStuid());
         List<Test> tests=testService.selectByExample(example);
         System.out.println(tests);
         modelAndView.addObject("tests",tests);
