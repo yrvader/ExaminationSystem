@@ -118,7 +118,7 @@
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <!--            根据目前的测试,3.4.5和3.5.5版本不会报错,其他版本还会出现错误提示-->
-      <version>3.4.5</version>
+      <version>3.5.6</version>
     </dependency>
 
     <!--        mybatis的逆向工程-->
